@@ -3,6 +3,7 @@ import "./App.css";
 import Map from "@arcgis/core/Map";
 import MapView from "@arcgis/core/views/MapView";
 import { createRenderer } from "@arcgis/core/smartMapping/renderers/heatmap";
+import * as heatmapSchemes from "@arcgis/core/smartMapping/symbology/heatmap";
 import CSVLayer from "@arcgis/core/layers/CSVLayer";
 import esriConfig from "@arcgis/core/config"; // https://developers.arcgis.com/javascript/latest/api-reference/esri-config.html
 
@@ -32,6 +33,11 @@ function App() {
 			// https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-renderers-heatmap.html#createRenderer
 			view: view,
 			layer: csvLayer,
+			heatmapScheme: heatmapSchemes.getSchemeByName({
+				// https://developers.arcgis.com/javascript/latest/api-reference/esri-smartMapping-symbology-heatmap.html#HeatmapScheme
+				basemap: map.basemap,
+				name: "Heatmap 8", // https://developers.arcgis.com/javascript/latest/visualization/symbols-color-ramps/esri-color-ramps/
+			}),
 		}).then((response) => {
 			csvLayer.renderer = response.renderer;
 		});
